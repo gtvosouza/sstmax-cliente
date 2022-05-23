@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 function AuthGuard({ children }) {
   const account = useSelector((state) => state.account);
-
+  
   if (!account.user) {
     return <Redirect to="/login" />;
   }

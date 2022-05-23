@@ -15,7 +15,6 @@ import { Menu as MenuIcon } from 'react-feather';
 import Logo from 'src/components/Logo';
 import { THEMES } from 'src/constants';
 import Account from './Account';
-import Settings from './Settings';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,7 +66,6 @@ function TopBar({
           flexGrow={1}
         />
        
-        <Settings />
         <Box ml={2}>
           <Account />
         </Box>

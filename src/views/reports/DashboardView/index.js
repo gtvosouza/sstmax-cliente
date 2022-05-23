@@ -6,14 +6,14 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Header from './Header';
-import LatestProjects from './LatestProjects';
+
 import NewProjects from './NewProjects';
 import PerformanceOverTime from './PerformanceOverTime';
 import RealTime from './RealTime';
 import RoiPerCustomer from './RoiPerCustomer';
 import SystemHealth from './SystemHealth';
 import TeamTasks from './TeamTasks';
-import TodaysMoney from './TodaysMoney';
+import FuncionariosAtivos from './FuncionariosAtivos';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,7 +53,7 @@ function DashboardView() {
             sm={6}
             xs={12}
           >
-            <TodaysMoney />
+            <FuncionariosAtivos />
           </Grid>
           <Grid
             item
@@ -100,15 +100,7 @@ function DashboardView() {
             xs={12}
           >
             <TeamTasks />
-          </Grid>
-          <Grid
-            item
-            lg={7}
-            xl={8}
-            xs={12}
-          >
-            <LatestProjects />
-          </Grid>
+          </Grid>         
         </Grid>
       </Container>
     </Page>

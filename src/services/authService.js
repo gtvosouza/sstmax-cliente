@@ -21,23 +21,27 @@ class AuthService {
 
   handleAuthentication() {
     const accessToken = this.getAccessToken();
+    const idEmpresa = this.getIdEmpresa();
+    const nomeEmpresa = this.getNomeEmpresa();
+    const cliente = this.getCliente();
 
-    if (!accessToken) {
+    if (!accessToken || !idEmpresa) {
       return;
     }
 
     if (this.isValidToken(accessToken)) {
-      this.setSession(accessToken);
+      this.setSession(accessToken, idEmpresa, nomeEmpresa,cliente);
     } else {
-      this.setSession(null);
+      this.setSession(null, null, null, null);
     }
   }
 
-  loginWithEmailAndPassword = (email, password) => new Promise((resolve, reject) => {
-    axios.post('/auth/client', { email, password })
+  loginWithCodAndPassword = (codigoUsuario, password) => new Promise((resolve, reject) => {
+    axios.post('/auth/client', { usuario: codigoUsuario, senha: password })
       .then((response) => {
         if (response.data.user) {
-          this.setSession(response.data.accessToken);
+          this.setSession(response.data.accessToken,response.data.user.id,response.data.user.nome, response.data.user.cliente);
+
           resolve(response.data.user);
         } else {
           reject(response.data.error);
@@ -50,20 +54,18 @@ class AuthService {
   })
 
   loginInWithToken = () => new Promise((resolve, reject) => {
-   /* axios.get('/api/account/me')
+    axios.post('/auth/validaToken', { })
       .then((response) => {
-        if (response.data.user) {
+        if (response.data.user) {          
           resolve(response.data.user);
         } else {
           reject(response.data.error);
         }
       })
       .catch((error) => {
+        console.log(error)
         reject(error);
       });
-      */
-
-      resolve(null);
       
   })
 
@@ -71,18 +73,27 @@ class AuthService {
     this.setSession(null);
   }
 
-  setSession = (accessToken) => {
-    if (accessToken) {
+  setSession = (accessToken, idEmpresa, nomeEmpresa, cliente) => {
+    if (accessToken && idEmpresa) {
       localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('idEmpresa', idEmpresa);
+      localStorage.setItem('nomeEmpresa', nomeEmpresa);
+      localStorage.setItem('cliente', cliente);
       
       axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
     } else {
       localStorage.removeItem('accessToken');
+      localStorage.removeItem('idEmpresa');
+      localStorage.removeItem('nomeEmpresa');
+      localStorage.removeItem('cliente');
       delete axios.defaults.headers.common.Authorization;      
     }
   }
 
   getAccessToken = () => localStorage.getItem('accessToken');
+  getIdEmpresa = () => localStorage.getItem('idEmpresa');
+  getNomeEmpresa = () => localStorage.getItem('nomeEmpresa');
+  getCliente = () => localStorage.getItem('cliente');
 
   isValidToken = (accessToken) => {
     if (!accessToken) {

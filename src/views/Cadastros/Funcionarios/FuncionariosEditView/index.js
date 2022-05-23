@@ -11,8 +11,10 @@ import {
 import Page from 'src/components/Page';
 import Header from './Header';
 import useIsMountedRef from 'src/hooks/useIsMountedRef';
-import AuxiliarEditForm from './AuxiliarEditForm';
+import FuncionarioEditForm from './FuncionarioEditForm';
+import FuncaoService from '../../../../services/funcaoService'
 import { useParams } from 'react-router-dom';
+import funcionariosService from 'src/services/funcionariosService';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,37 +25,72 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function AuxiliarView() {
+function FuncionarioView() {
   const classes = useStyles();
   const isMountedRef = useIsMountedRef();
-  const [auxiliar, setAuxiliar] = useState(null);
-  const { idAuxiliar } = useParams();
-  const [tipos, setTipos] = useState([]);
+  const [funcionario, setFuncionario] = useState(null);
+  const [funcoes, setFuncoes] = useState([]);  
+  const { idFuncionario } = useParams();
+  const idEmpresa = localStorage.getItem('idEmpresa');
   
-  const getAuxiliar = useCallback(() => {   
-  
-  }, [isMountedRef]);
-
-  
-  const getAuxiliaresTipos = useCallback(() => {
-   
-  }, [isMountedRef]);
-
-  
-  if (!auxiliar) {
-    return null;
+  const defaultValues = {
+    ID_FUNCIONARIO:  0,
+    NOME_FUNCIONARIO:   '',
+    ID_FUNCAO:  0,
+    DATA_NASC:new Date(),
+    DATA_ADMISSAO:  new Date(),
+    SEXO: 'M',
+    CPF:  '',
+    MATRICULA_ESOCIAL:  '',
+    SETOR: '',
   }
+
+   
+  useEffect(() => {
+
+    async function getFuncionario() { 
+      const result = await funcionariosService.getOne(idEmpresa, idFuncionario);
+  
+      if(!!result) {
+        if(result.length > 0)
+            setFuncionario(result[0]);
+      }
+        
+    }
+      
+    async function getFuncoes() {
+      const response = await FuncaoService.get(idEmpresa);
+      setFuncoes(response);
+    }
+
+    if(idFuncionario !== undefined) {
+      getFuncionario()
+    } else {
+      setFuncionario(defaultValues);
+    }
+
+    getFuncoes();
+  }, [, idFuncionario]);
+
+
 
   return (
     <Page
       className={classes.root}
-      title="Agendamento"
+      title="Funcionarios"
     >
       <Container maxWidth={false}>
         <Header /> 
         
-        <Box mt={3}>        
-          <AuxiliarEditForm auxiliar={auxiliar} tipos = {tipos} />
+        <Box mt={3}>     
+        
+        {funcionario !== null && funcoes !== undefined  ? 
+        (
+          <FuncionarioEditForm funcionario={funcionario} funcoes={funcoes}/>
+        )   
+        : (<> </>)
+         }
+         
         </Box>
         
         </Container>
@@ -61,4 +98,4 @@ function AuxiliarView() {
   );
 }
 
-export default AuxiliarView;
+export default FuncionarioView;

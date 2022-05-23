@@ -20,11 +20,12 @@ function Auth({ children }) {
 
       authService.handleAuthentication();
 
-    /*   if (authService.isAuthenticated()) {
+
+      if (authService.isAuthenticated()) {
         const user = await authService.loginInWithToken();
 
         await dispatch(setUserData(user));
-      } */
+      } 
 
       setLoading(false);
     };

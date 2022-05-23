@@ -33,27 +33,19 @@ function Header({ className, ...rest }) {
           component={RouterLink}
         >
           Dashboard
-        </Link>
-        <Link
-          variant="body1"
-          color="inherit"
-          to="/app/cadastros/auxiliar"
-          component={RouterLink}
-        >
-          Auxiliares
-        </Link>
+        </Link>        
         <Typography
           variant="body1"
           color="textPrimary"
         >
-          Auxiliar
+          Funcionario
         </Typography>
       </Breadcrumbs>
       <Typography
         variant="h3"
         color="textPrimary"
       >
-        Editar Registro Auxiliar
+        Editar Funcionários
       </Typography>
     </div>
   );

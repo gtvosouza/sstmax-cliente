@@ -13,12 +13,13 @@ import {
 import Page from 'src/components/Page';
 import Header from './Header';
 import useIsMountedRef from 'src/hooks/useIsMountedRef';
-import FuncionarioService from '../../../../services/funcionariosService'
+import EsocialService from '../../../../services/esocialService'
 import Filters from './Filter';
 import Loading from 'src/components/Loading';
 import paginate from 'src/utils/paginate';
 import Results from './Results';
 import Pagination from '@material-ui/lab/Pagination';
+import esocialService from '../../../../services/esocialService';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 function FuncionarioView() {
   const classes = useStyles();
   const isMountedRef = useIsMountedRef();
-  const [funcionarios, setFuncionarios] = useState([]);
+  const [eventos, setEventos] = useState([]);
   
   const searchDefaultValues = {
     name: ''  
@@ -49,22 +50,22 @@ function FuncionarioView() {
   const [filtered, setFiltered] = useState({});
   const perPage = 12;
 
-  const getFuncionarios = useCallback(() => {
-    FuncionarioService.get(4130).then((response) => {
+  const getEventos = useCallback(() => {
+    EsocialService.get.then((response) => {
       if (isMountedRef.current) {
-        setFuncionarios(response);
+        setEventos(response);
       }
     });    
 
   }, [isMountedRef]);
   
   useEffect(() => {
-    getFuncionarios();
+    getEventos();
   }, []);
   
   const executeFilter = () => {
 
-    return funcionarios.filter(f => {
+    return eventos.filter(f => {
       let found = false;
 
       if (!found && search.name && f.NOME_FUNCIONARIO !== undefined) {
@@ -78,11 +79,11 @@ function FuncionarioView() {
   };
 
   useEffect(() => {    
-    if (funcionarios != undefined) {
+    if (eventos != undefined) {
       setFiltered(executeFilter);      
       setIsLoading(false);
     } 
-  }, [funcionarios, search]);
+  }, [eventos, search]);
   
 
   return (
@@ -104,16 +105,16 @@ function FuncionarioView() {
             <Grid item lg={12} sm={12} xs={12}>
               <Box mt={3}>
                 {isLoading ? (
-                  <Loading message="Buscando empresas..." />
+                  <Loading message="Buscando eventos..." />
                 ) : (
                   <Grid container spacing={2}>
                     {filtered.length ? (
                       <>
                         {paginate(filtered, perPage, page).map(
-                          (funcionario, index) => (
+                          (evento, index) => (
                             <Results
-                              key={funcionario.ID_FUNCIONARIO}
-                              funcionario={funcionario}
+                              key={evento.RECIBO}
+                              eventos={eventos}
                             />
                           )
                         )}

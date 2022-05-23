@@ -8,7 +8,7 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
-import FolderOpenIcon from '@material-ui/icons/FolderOpenOutlined';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import Label from 'src/components/Label';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,10 +29,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function EventoseSocial({ className, ...rest }) {
+function FuncionariosAtivos({ className, ...rest }) {
   const classes = useStyles();
   const data = {
-    value: 12,
+    value: '104'
   };
 
   return (
@@ -47,7 +47,7 @@ function EventoseSocial({ className, ...rest }) {
           variant="overline"
           color="textSecondary"
         >
-          Eventos eSocial
+          Funcionários Ativos
         </Typography>
         <Box
           display="flex"
@@ -59,18 +59,18 @@ function EventoseSocial({ className, ...rest }) {
             color="textPrimary"
           >
             {data.value}
-          </Typography>         
+          </Typography>          
         </Box>
       </Box>
       <Avatar className={classes.avatar}>
-        <FolderOpenIcon />
+        <AttachMoneyIcon />
       </Avatar>
     </Card>
   );
 }
 
-EventoseSocial.propTypes = {
+FuncionariosAtivos.propTypes = {
   className: PropTypes.string
 };
 
-export default EventoseSocial;
+export default FuncionariosAtivos;

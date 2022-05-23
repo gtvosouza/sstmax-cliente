@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
     minHeight: '100%',
-    height: '100%',
-    paddingTop: 120,
+    height: '100%', 
+    paddingTop: 120, 
     paddingBottom: 120
   },
   product: {

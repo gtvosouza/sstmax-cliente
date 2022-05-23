@@ -50,6 +50,7 @@ function Account() {
     try {
       handleClose();
       await dispatch(logout());
+      
       history.push('/');
     } catch (error) {
       enqueueSnackbar('Unable to logout', {
@@ -57,7 +58,7 @@ function Account() {
       });
     }
   };
-
+  console.log(account.user)
   return (
     <>
       <Box
@@ -77,7 +78,7 @@ function Account() {
             variant="h6"
             color="inherit"
           >
-            {`${account.user.firstName} ${account.user.lastName}`}
+            {`${account.user.cliente} `}
           </Typography>
         </Hidden>
       </Box>
@@ -92,19 +93,7 @@ function Account() {
         getContentAnchorEl={null}
         anchorEl={ref.current}
         open={isOpen}
-      >
-        <MenuItem
-          component={RouterLink}
-          to="/app/social/profile"
-        >
-          Profile
-        </MenuItem>
-        <MenuItem
-          component={RouterLink}
-          to="/app/account"
-        >
-          Account
-        </MenuItem>
+      >       
         <MenuItem onClick={handleLogout}>
           Logout
         </MenuItem>

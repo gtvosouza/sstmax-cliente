@@ -1,24 +1,19 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import {
   Avatar,
-  Button,
   Box,
   Container,
   Card,
   CardContent,
   CardMedia,
   Divider,
-  Link,
   Typography,
   colors,
   makeStyles
 } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
 import LockIcon from '@material-ui/icons/Lock';
 import Page from 'src/components/Page';
-import Logo from 'src/components/Logo';
 import LoginForm from './LoginForm';
 
 const useStyles = makeStyles((theme) => ({

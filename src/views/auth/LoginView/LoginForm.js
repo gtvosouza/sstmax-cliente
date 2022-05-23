@@ -25,28 +25,29 @@ function LoginForm({ className, onSubmitSuccess, ...rest }) {
   return (
     <Formik
       initialValues={{
-        email: 'gtvosouza@hotmail.com',
-        password: '123'
+        codigoUsuario: '000100004130',
+        password: '92662139'                   
       }}
 
       validationSchema={Yup.object().shape({
-        email: Yup.string().email('Precisa ser um email válido').max(255).required('Email is required'),
+        codigoUsuario: Yup.string().min(12).max(12).required(''),
         password: Yup.string().max(255).required('Password is required')
       })}
 
       onSubmit={async (values, {
-        setErrors,
+        setErrors, 
         setStatus,
         setSubmitting
       }) => {
         try {
-          await dispatch(login(values.email, values.password));
+          await dispatch(login(values.codigoUsuario, values.password));
           onSubmitSuccess();
         } catch (error) {
-          const message = (error.response && error.response.data.message) || 'Something went wrong';
+      
+          const message = (error.response.data.error) || 'Contate suporte técnico';
 
           setStatus({ success: false });
-          setErrors({ submit: message });
+          setErrors({ submit: message }); 
           setSubmitting(false);
         }
       }}
@@ -71,13 +72,12 @@ function LoginForm({ className, onSubmitSuccess, ...rest }) {
             fullWidth
             autoFocus
             helperText={touched.email && errors.email}
-            label="Email"
+            label="Usuário"
             margin="normal"
-            name="email"
+            name="codigoUsuario"
             onBlur={handleBlur}
             onChange={handleChange}
-            type="email"
-            value={values.email}
+            value={values.codigoUsuario}
             variant="outlined"
           />
           <TextField

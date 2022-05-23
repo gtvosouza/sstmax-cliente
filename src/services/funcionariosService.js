@@ -1,4 +1,4 @@
-import { postRequest, getRequest } from './requests';
+import { postRequest, getRequest, putRequest } from './requests';
 
 class FuncionarioService {
   
@@ -13,7 +13,17 @@ class FuncionarioService {
     getRequest(`/funcionario/all?idEmpresa=${idEmpresa}`, resolve, reject);
   });
 
+  getOne = (idEmpresa, idFuncionario) =>
+  new Promise((resolve, reject) => {
+    getRequest(`/funcionario/all?idEmpresa=${idEmpresa}&idFuncionario=${idFuncionario}`, resolve, reject);
+  });
 
+  
+  put = data => {
+    return new Promise((resolve, reject) => {
+      putRequest('/funcionario', data, resolve, reject);
+    });
+  };
 
 }
 
