@@ -4,39 +4,49 @@ import PropTypes from 'prop-types';
 import {
   Box,
   Card,
-  LinearProgress,
+  Avatar,
   Typography,
   makeStyles
 } from '@material-ui/core';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(3)
+    padding: theme.spacing(3),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   },
-  progress: {
-    margin: theme.spacing(0, 1),
-    flexGrow: 1
+  label: {
+    marginLeft: theme.spacing(1)
+  },
+  avatar: {
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.secondary.contrastText,
+    height: 48,
+    width: 48
   }
 }));
 
-function SystemHealth({ className, ...rest }) {
+function SystemHealth({ qtdeFuncoes, className, ...rest }) {
   const classes = useStyles();
   const data = {
-    value: 97
+    value: qtdeFuncoes
   };
 
   return (
     <Card
-      className={clsx(classes.root, className)}
-      {...rest}
-    >
+    className={clsx(classes.root, className)}
+    {...rest}
+  >
+    <Box flexGrow={1}>
       <Typography
         component="h3"
         gutterBottom
         variant="overline"
         color="textSecondary"
       >
-        System Health
+        Funções
       </Typography>
       <Box
         display="flex"
@@ -48,16 +58,13 @@ function SystemHealth({ className, ...rest }) {
           color="textPrimary"
         >
           {data.value}
-          %
-        </Typography>
-        <LinearProgress
-          className={classes.progress}
-          value={data.value}
-          color="secondary"
-          variant="determinate"
-        />
+        </Typography>         
       </Box>
-    </Card>
+    </Box>
+    <Avatar className={classes.avatar}>
+    
+    </Avatar>
+  </Card>
   );
 }
 

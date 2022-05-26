@@ -54,7 +54,16 @@ const routesConfig = [
         path: '/app/reports',
         component: () => <Redirect to="/app/reports/dashboard" />
       },
-     
+      {
+        exact: true,
+        path: '/app/cadastros/esocial',
+        component: lazy(() => import('src/views/Cadastros/esocial/esocialView'))
+      },
+      {
+        exact: true,
+        path: '/app/cadastros/agenda',
+        component: lazy(() => import('src/views/Cadastros/agendamento/agendamentoView'))
+      },
       {
         exact: true,
         path: '/app/cadastros/funcionarios',

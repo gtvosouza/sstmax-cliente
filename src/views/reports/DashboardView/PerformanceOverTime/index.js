@@ -20,7 +20,9 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-function PerformanceOverTime({ className, ...rest }) {
+function PerformanceOverTime({ consulta, className, ...rest }) {
+  console.log(consulta)
+
   const classes = useStyles();
   const performance = {
     thisWeek: {
@@ -28,24 +30,24 @@ function PerformanceOverTime({ className, ...rest }) {
       labels: []
     },
     thisMonth: {
-      data: [],
+      data: [], 
       labels: []
     },
     thisYear: {
-      data: [10, 5, 11, 20, 13, 28, 18, 4, 13, 12, 13, 5],
+      data: consulta,
       labels: [
         'Jan',
-        'Feb',
+        'Fev',
         'Mar',
-        'Apr',
-        'May',
+        'Abr',
+        'Mai',
         'Jun',
         'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
+        'Ago',
+        'Set',
+        'Out',
         'Nov',
-        'Dec'
+        'Dez'
       ]
     }
   };
@@ -57,7 +59,7 @@ function PerformanceOverTime({ className, ...rest }) {
     >
       <CardHeader
         action={<GenericMoreButton />}
-        title="Performance Over Time"
+        title="Consultas Realizadas"
       />
       <Divider />
       <CardContent>

@@ -119,7 +119,7 @@ function Chart({
       }
     }
   };
-
+ 
   return (
     <div
       className={clsx(classes.root, className)}

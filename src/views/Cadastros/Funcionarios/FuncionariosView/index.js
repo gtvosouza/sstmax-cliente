@@ -139,7 +139,7 @@ function FuncionarioView() {
                       >
                         <Grid item>
                           <Typography variant="h5">
-                            Nenhum Funcionário Encontrado
+                            Nenhum Evento Encontrado
                           </Typography>
                         </Grid>
                       </Grid>

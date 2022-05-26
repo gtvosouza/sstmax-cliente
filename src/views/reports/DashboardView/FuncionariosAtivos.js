@@ -9,7 +9,6 @@ import {
   makeStyles
 } from '@material-ui/core';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-import Label from 'src/components/Label';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,10 +28,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function FuncionariosAtivos({ className, ...rest }) {
+function FuncionariosAtivos({ qtdeFuncionario, className, ...rest }) {
   const classes = useStyles();
   const data = {
-    value: '104'
+    value: qtdeFuncionario
   };
 
   return (
@@ -63,7 +62,6 @@ function FuncionariosAtivos({ className, ...rest }) {
         </Box>
       </Box>
       <Avatar className={classes.avatar}>
-        <AttachMoneyIcon />
       </Avatar>
     </Card>
   );

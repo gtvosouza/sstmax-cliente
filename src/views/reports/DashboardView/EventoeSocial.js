@@ -8,30 +8,30 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import Wifi from '@material-ui/icons/Wifi';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    color: theme.palette.secondary.contrastText,
-    backgroundColor: theme.palette.secondary.main,
     padding: theme.spacing(3),
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
   },
+  label: {
+    marginLeft: theme.spacing(1)
+  },
   avatar: {
-    backgroundColor: theme.palette.secondary.contrastText,
-    color: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.secondary.contrastText,
     height: 48,
     width: 48
   }
 }));
 
-function RoiPerCustomer({ className, ...rest }) {
+function EventoseSocial({ qtdeEventos, className, ...rest }) {
   const classes = useStyles();
   const data = {
-    value: '25.50',
-    currency: '$'
+    value: qtdeEventos,
   };
 
   return (
@@ -41,12 +41,12 @@ function RoiPerCustomer({ className, ...rest }) {
     >
       <Box flexGrow={1}>
         <Typography
-          color="inherit"
           component="h3"
           gutterBottom
           variant="overline"
+          color="textSecondary"
         >
-          Roi per customer
+          Eventos eSocial
         </Typography>
         <Box
           display="flex"
@@ -54,26 +54,22 @@ function RoiPerCustomer({ className, ...rest }) {
           flexWrap="wrap"
         >
           <Typography
-            color="inherit"
             variant="h3"
+            color="textPrimary"
           >
-            {data.currency}
             {data.value}
-          </Typography>
+          </Typography>         
         </Box>
       </Box>
-      <Avatar
-        className={classes.avatar}
-        color="inherit"
-      >
-        <AttachMoneyIcon />
+      <Avatar className={classes.avatar}>
+        <Wifi />
       </Avatar>
     </Card>
   );
 }
 
-RoiPerCustomer.propTypes = {
+EventoseSocial.propTypes = {
   className: PropTypes.string
 };
 
-export default RoiPerCustomer;
+export default EventoseSocial;

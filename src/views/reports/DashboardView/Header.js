@@ -16,25 +16,6 @@ import {
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { Calendar as CalendarIcon } from 'react-feather';
 
-const timeRanges = [
-  {
-    value: 'today',
-    text: 'Today'
-  },
-  {
-    value: 'yesterday',
-    text: 'Yesterday'
-  },
-  {
-    value: 'last_30_days',
-    text: 'Last 30 days'
-  },
-  {
-    value: 'last_year',
-    text: 'Last year'
-  }
-];
-
 const useStyles = makeStyles((theme) => ({
   root: {},
   actionIcon: {
@@ -46,7 +27,6 @@ function Header({ className, ...rest }) {
   const classes = useStyles();
   const actionRef = useRef(null);
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [timeRange, setTimeRange] = useState(timeRanges[2].text);
 
   return (
     <Grid
@@ -80,46 +60,8 @@ function Header({ className, ...rest }) {
           variant="h3"
           color="textPrimary"
         >
-          Here&apos;s what&apos;s happening
+          Minha Empresa
         </Typography>
-      </Grid>
-      <Grid item>
-        <Button
-          ref={actionRef}
-          onClick={() => setMenuOpen(true)}
-        >
-          <SvgIcon
-            fontSize="small"
-            className={classes.actionIcon}
-          >
-            <CalendarIcon />
-          </SvgIcon>
-          {timeRange}
-        </Button>
-        <Menu
-          anchorEl={actionRef.current}
-          onClose={() => setMenuOpen(false)}
-          open={isMenuOpen}
-          PaperProps={{ className: classes.menu }}
-          getContentAnchorEl={null}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center'
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center'
-          }}
-        >
-          {timeRanges.map((t) => (
-            <MenuItem
-              key={t.value}
-              onClick={() => setTimeRange(t.text)}
-            >
-              {t.text}
-            </MenuItem>
-          ))}
-        </Menu>
       </Grid>
     </Grid>
   );

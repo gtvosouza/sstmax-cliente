@@ -51,17 +51,17 @@ const navConfig = [
       {
         title: 'Meus agendamentos',
         icon: CalendarIcon,
-        href: '/app/cadastros/funcionarios'
+        href: '/app/cadastros/agenda'
       },
-      {
-        title: 'Próximos Exames',
-        icon: CornerDownRightIcon,
-        href: '/app/cadastros/funcionarios'
-      },
+      //{
+      //  title: 'Próximos Exames',
+      //  icon: CornerDownRightIcon,
+      //  href: '/app/cadastros/funcionarios'
+     // },
       {
         title: 'eSocial',
         icon: WifiIcon,
-        href: '/app/cadastros/funcionarios'
+        href: '/app/cadastros/esocial'
       },
     ]
   }

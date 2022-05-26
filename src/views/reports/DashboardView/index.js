@@ -1,4 +1,8 @@
-import React from 'react';
+import React, {
+  useState,
+  useEffect,
+  useCallback
+} from 'react';
 import {
   Container,
   Grid,
@@ -6,14 +10,14 @@ import {
 } from '@material-ui/core';
 import Page from 'src/components/Page';
 import Header from './Header';
+import DashboardService from '../../../services/dashboardService';
 
-import NewProjects from './NewProjects';
-import PerformanceOverTime from './PerformanceOverTime';
-import RealTime from './RealTime';
-import RoiPerCustomer from './RoiPerCustomer';
-import SystemHealth from './SystemHealth';
-import TeamTasks from './TeamTasks';
-import FuncionariosAtivos from './FuncionariosAtivos';
+import EventoeSocial from './EventoeSocial';
+import Consultas from './PerformanceOverTime';
+import Financeiro from './Financeiro';
+import Funcoes from './Funcoes';
+import FuncionariosAtivos from './FuncionariosAtivos'; 
+import useIsMountedRef from 'src/hooks/useIsMountedRef';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +36,43 @@ const useStyles = makeStyles((theme) => ({
 
 function DashboardView() {
   const classes = useStyles();
+  const isMountedRef = useIsMountedRef();
+
+  const [dashboard, setDashboard] = useState({
+                                            FUNCIONARIOS_ATIVOS: 0,
+                                            FINANCEIRO: 0,
+                                            ESOCIAL: 0,
+                                            FUNCOES: 0
+                                          });
+
+  const [consulta, setConsulta] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+
+const getConsultas = useCallback(() => {
+  DashboardService.getConsultas().then((response) => {
+    if (isMountedRef.current) {
+      setConsulta(response);
+      console.log(response)
+    }
+  });    
+
+}, [isMountedRef]);
+
+const getDashboard = useCallback(() => {
+  DashboardService.get().then((response) => {
+    if (isMountedRef.current) {
+      setDashboard(response);
+      console.log(response)
+    }
+  });    
+
+}, [isMountedRef]);
+
+useEffect(() => {    
+  getDashboard()
+  getConsultas()
+
+}, []);
+
 
   return (
     <Page
@@ -53,7 +94,7 @@ function DashboardView() {
             sm={6}
             xs={12}
           >
-            <FuncionariosAtivos />
+            <FuncionariosAtivos qtdeFuncionario = {dashboard.FUNCIONARIOS_ATIVOS}/>
           </Grid>
           <Grid
             item
@@ -61,7 +102,7 @@ function DashboardView() {
             sm={6}
             xs={12}
           >
-            <NewProjects />
+            <EventoeSocial  qtdeEventos = {dashboard.ESOCIAL}/>
           </Grid>
           <Grid
             item
@@ -69,7 +110,7 @@ function DashboardView() {
             sm={6}
             xs={12}
           >
-            <SystemHealth />
+            <Funcoes  qtdeFuncoes={dashboard.FUNCOES}/>
           </Grid>
           <Grid
             item
@@ -77,30 +118,16 @@ function DashboardView() {
             sm={6}
             xs={12}
           >
-            <RoiPerCustomer />
+            <Financeiro valor = {dashboard.FINANCEIRO} />
           </Grid>
+       
           <Grid
             item
-            lg={3}
+            lg={12} 
             xs={12}
           >
-            <RealTime />
-          </Grid>
-          <Grid
-            item
-            lg={9}
-            xs={12}
-          >
-            <PerformanceOverTime />
-          </Grid>
-          <Grid
-            item
-            lg={5}
-            xl={4}
-            xs={12}
-          >
-            <TeamTasks />
-          </Grid>         
+            <Consultas consulta={consulta}/>
+          </Grid>              
         </Grid>
       </Container>
     </Page>

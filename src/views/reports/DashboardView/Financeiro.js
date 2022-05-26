@@ -8,31 +8,30 @@ import {
   Typography,
   makeStyles
 } from '@material-ui/core';
-import FolderOpenIcon from '@material-ui/icons/FolderOpenOutlined';
-import Label from 'src/components/Label';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    color: theme.palette.secondary.contrastText,
+    backgroundColor: theme.palette.secondary.main,
     padding: theme.spacing(3),
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between'
   },
-  label: {
-    marginLeft: theme.spacing(1)
-  },
   avatar: {
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.secondary.contrastText,
+    backgroundColor: theme.palette.secondary.contrastText,
+    color: theme.palette.secondary.main,
     height: 48,
     width: 48
   }
 }));
 
-function EventoseSocial({ className, ...rest }) {
+function Financeiro({ valor, className, ...rest }) {
   const classes = useStyles();
   const data = {
-    value: 12,
+    value: valor,
+    currency: '$'
   };
 
   return (
@@ -42,12 +41,12 @@ function EventoseSocial({ className, ...rest }) {
     >
       <Box flexGrow={1}>
         <Typography
+          color="inherit"
           component="h3"
           gutterBottom
           variant="overline"
-          color="textSecondary"
         >
-          Eventos eSocial
+          Valor em Aberto
         </Typography>
         <Box
           display="flex"
@@ -55,22 +54,27 @@ function EventoseSocial({ className, ...rest }) {
           flexWrap="wrap"
         >
           <Typography
+            color="inherit"
             variant="h3"
-            color="textPrimary"
           >
+            {data.currency}
             {data.value}
-          </Typography>         
+          </Typography>
         </Box>
       </Box>
-      <Avatar className={classes.avatar}>
-        <FolderOpenIcon />
+      <Avatar
+        className={classes.avatar}
+        color="inherit"
+      >
+        <AttachMoneyIcon />
       </Avatar>
     </Card>
   );
 }
 
-EventoseSocial.propTypes = {
+Financeiro.propTypes = {
+  valor: PropTypes.number,
   className: PropTypes.string
 };
-
-export default EventoseSocial;
+ 
+export default Financeiro;

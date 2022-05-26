@@ -15,8 +15,7 @@ import datetimeToString from 'src/utils/datetimeToString';
 import EditIcon from '@material-ui/icons/Edit';
 
 
-
-const Eventos = ({ evento }) => {
+const Agendamento = ({ horario }) => {
   const history = useHistory();
 
   const routeChange = id => {
@@ -38,8 +37,8 @@ const Eventos = ({ evento }) => {
           alignItems="center"
           p={2}
         >
-          <Typography variant="h5">{evento.EVENTO}</Typography>
-        
+          <Typography variant="h5">{horario.NOME_FUNCIONARIO}</Typography>         
+
         </Box>
         <Divider />
         <CardContent>
@@ -49,12 +48,10 @@ const Eventos = ({ evento }) => {
             flexWrap="wrap"
             justifyContent="space-between"
           >
-            <CardInformation label="Id Evento" value={evento.ID_EVENTO} />
-            <CardInformation label="Funcionário" value={evento.NOME_FUNCIONARIO} />
-            <CardInformation label="Data Documento" value={datetimeToString(evento.DATA_DOC)} />
-            <CardInformation label="Protocolo" value={evento.PROTOCOLO} />
-            <CardInformation label="Data Envio" value={datetimeToString(evento.DATA_DOC)} />
-            <CardInformation label="Recibo" value={evento.RECIBO} />
+            <CardInformation label="Função" value={horario.NOME_FUNCAO} />
+            <CardInformation label="Data" value={datetimeToString(horario.DATA_AGENDA)} />
+            <CardInformation label="Hora" value={horario.HORA_AGENDA} />
+            <CardInformation label="Tipo de Exame" value={horario.TIPO_EXAME} />
           </Box>
         </CardContent>
       </Card>
@@ -62,17 +59,15 @@ const Eventos = ({ evento }) => {
   );
 };
 
-Eventos.propTypes = {
+Agendamento.propTypes = {
   evento: PropTypes.shape({
-    NOME_EMPRESA: PropTypes.string,
+    ID_AGENDA_FONE: PropTypes.number,
     NOME_FUNCIONARIO: PropTypes.string,
-    DATA_DOC: PropTypes.string,
+    DATA_AGENDA: PropTypes.string,
     DATA_ENVIO: PropTypes.string,
-    PROTOCOLO: PropTypes.string,
-    RECIBO: PropTypes.string,
-    ID_EVENTO: PropTypes.string,
-    EVENTO: PropTypes.string,
+    HORA_AGENDA: PropTypes.string,
+    TIPO_EXAME: PropTypes.string,
   }).isRequired,
 };
 
-export default Eventos;
+export default Agendamento;

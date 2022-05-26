@@ -18,7 +18,7 @@ import Loading from 'src/components/Loading';
 import paginate from 'src/utils/paginate';
 import Results from './Results';
 import Pagination from '@material-ui/lab/Pagination';
-import esocialService from '../../../../services/esocialService';
+import AgendaService from '../../../../services/agendaService';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,10 +29,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function FuncionarioView() {
+function AgendaView() {
   const classes = useStyles();
   const isMountedRef = useIsMountedRef();
-  const [eventos, setEventos] = useState([]);
+  const [horarios, setHorarios] = useState([]);
   
   const searchDefaultValues = {
     name: ''  
@@ -49,10 +49,10 @@ function FuncionarioView() {
   const [filtered, setFiltered] = useState({});
   const perPage = 12;
 
- const getEventos = useCallback(() => {
-    esocialService.get().then((response) => {
+ const getHorarios = useCallback(() => {
+    AgendaService.get().then((response) => {
       if (isMountedRef.current) {
-        setEventos(response);
+        setHorarios(response);
       }
     });    
 
@@ -60,13 +60,13 @@ function FuncionarioView() {
   
   
   useEffect(() => {    
-    getEventos()
+    getHorarios()
   }, []);
   
 
   const executeFilter = () => {
 
-    return eventos.filter(f => {
+    return horarios.filter(f => {
       let found = false;
 
     /*  if (!found && search.name && f.NOME_FUNCIONARIO !== undefined) {
@@ -80,15 +80,15 @@ function FuncionarioView() {
   };
 
   useEffect(() => {    
-    if (eventos != undefined) {
+    if (horarios != undefined) {
       setFiltered(executeFilter);      
       setIsLoading(false);
     } 
-  }, [eventos, search]);
+  }, [horarios, search]);
   
 
-  return (
-    <Page className={classes.root} title="Funcionários">
+  return ( 
+    <Page className={classes.root} title="Agendamento">
       <Container className={classes.root} maxWidth={false}>
         <Header />
       
@@ -106,16 +106,16 @@ function FuncionarioView() {
             <Grid item lg={12} sm={12} xs={12}>
               <Box mt={3}>
                 {isLoading ? (
-                  <Loading message="Buscando eventos..." />
+                  <Loading message="Buscando horários..." />
                 ) : (
                   <Grid container spacing={2}>
                     {filtered.length ? (
                       <>
                         {paginate(filtered, perPage, page).map(
-                          (evento, index) => (
+                          (horario, index) => (
                             <Results
-                              key={evento.ID_EVENTO}
-                              evento={evento}
+                              key={horario.ID_AGENDA_FONE}
+                              horario={horario}
                             />
                           )
                         )}
@@ -141,7 +141,7 @@ function FuncionarioView() {
                       >
                         <Grid item>
                           <Typography variant="h5">
-                            Nenhum Evento Encontrado
+                            Não existe agendamento nos próximos dias
                           </Typography>
                         </Grid>
                       </Grid>
@@ -157,4 +157,4 @@ function FuncionarioView() {
   );
 }
 
-export default FuncionarioView;
+export default AgendaView;

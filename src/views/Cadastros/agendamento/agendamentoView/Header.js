@@ -14,6 +14,10 @@ import {
 
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 
+import {
+  PlusCircle as PlusCircleIcon,
+} from 'react-feather';
+
 const useStyles = makeStyles((theme) => ({
   root: {},
   action: {
@@ -55,14 +59,14 @@ function Header({ className, ...rest }) {
             variant="body1"
             color="textPrimary"
           >
-            Eventos eSocial
+            Agendamento
           </Typography>
         </Breadcrumbs>
         <Typography
           variant="h3"
           color="textPrimary"
         >
-          Eventos eSocial
+          Agendamento
         </Typography>
       </Grid>
     </Grid>
